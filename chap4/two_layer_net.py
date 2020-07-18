@@ -4,6 +4,21 @@ sys.path.append(os.pardir)  # 부모 디렉터리의 파일을 가져올 수 있
 from common.functions import *
 from common.gradient import numerical_gradient
 
+"""
+TwoLayerNet클래스가 사용하는 변수
+-----------------------
+params : 신경망의 매개변수를 보관하는 딕셔너리 변수
+grads : 기울기 보관하는 딕셔너리 변수 
+
+TwoLayerNet 클래스의 메서드
+-----------------------
+__init__(self, input_size, hidden_size, output_size)
+predict(selt,x)
+loss(selt,x,t)
+accuracy(selt,x,t)
+numerical_gradient(selt,x,t)
+gradient(selt,x,t)
+"""
 
 class TwoLayerNet:
 
@@ -31,7 +46,7 @@ class TwoLayerNet:
     # x : 입력 데이터, t : 정답 레이블
     def loss(self, x, t):
         y = self.predict(x)
-        
+        #predict()의 결과와 정답 레이블을 바탕으로 교차 엔트로피 오차를 구하도록 구현
         return cross_entropy_error(y, t)
     
     def accuracy(self, x, t):
@@ -43,6 +58,7 @@ class TwoLayerNet:
         return accuracy
         
     # x : 입력 데이터, t : 정답 레이블
+    # 각 매개변수의 기울기를 계산 (수치 미분 방식으로 각 매개변수의 손실함수에 대한 기울기 계산)
     def numerical_gradient(self, x, t):
         loss_W = lambda W: self.loss(x, t)
         
@@ -53,7 +69,7 @@ class TwoLayerNet:
         grads['b2'] = numerical_gradient(loss_W, self.params['b2'])
         
         return grads
-        
+    # 오차역전파법. numerical_gradient 과 같은 값을 더 빠르게 얻을 수 있는 방법 (다음장)
     def gradient(self, x, t):
         W1, W2 = self.params['W1'], self.params['W2']
         b1, b2 = self.params['b1'], self.params['b2']
