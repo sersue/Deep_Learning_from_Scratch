@@ -1,4 +1,9 @@
 # coding: utf-8
+"""
+batch_norm (배치 정규화)
+가중치 초깃값에 크게 의존하지 않게
+각 층의 활성화값을 적당히 퍼뜨리도록 강제하는 것
+"""
 import sys, os
 sys.path.append(os.pardir)  # 부모 디렉터리의 파일을 가져올 수 있도록 설정
 import numpy as np
